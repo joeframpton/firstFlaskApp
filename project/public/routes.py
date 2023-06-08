@@ -76,7 +76,7 @@ def contact_me():
         to_address = [contact.email] + bcc
         server=smtplib.SMTP('smtp.office365.com', 587)
         server.starttls()
-        server.login(website_email, 'JoeFramptonwebsite2023')
+        server.login(website_email, 'Password goes here')
         server.sendmail(website_email, to_address, email_response)
         server.quit()
 
