@@ -1,0 +1,13 @@
+{% extends "skills.html" %}
+{% block heading%}
+<h4 class = "my-4">Amend a Skill or Qualification</h4>
+{% endblock %}
+
+{% block content %} 
+<button type="button" class="btn btn-secondary mb-4 back">Back</button>
+<a class="btn btn-danger mb-4 ms-4" href="{{ url_for('admin.skills_delete', id=skill_to_update.id) }}" role="button">Delete</a>
+{{ super() }}
+{% endblock %}
+
+{% block admin_secondary %}
+{% endblock %}

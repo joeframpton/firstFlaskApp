@@ -1,0 +1,13 @@
+{% extends "work.html" %}
+{% block heading%}
+<h4 class = "my-4">Amend Work History</h4>
+{% endblock %}
+
+{% block content %} 
+<button type="button" class="btn btn-secondary mb-4 back">Back</button>
+<a class="btn btn-danger mb-4 ms-4" href="{{ url_for('admin.work_delete', id=work_to_update.id) }}" role="button">Delete</a>
+{{ super() }}
+{% endblock %}
+
+{% block admin_secondary %}
+{% endblock %}

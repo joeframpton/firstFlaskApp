@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card my-4 shadow-sm p-3 bg-body rounded">
+    <h5 class="card-header text-white" id="card-header-background">{{active_user.name}}'s Portfolio</h5>
+    <div class="container card-body">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                {% if active_user.image_filename|length < 1 %}                
+                    <img src="{{ url_for('static', filename='default_image.jpg') }}" alt="Default Profile Picture" class="img-thumbnail rounded mx-auto d-block">
+                {% else %}
+                    <img src="{{ url_for('public.image', id=active_user.id) }}" alt="{{ active_user.name}}'s Profile Picture" class="img-thumbnail rounded mx-auto d-block">
+                {% endif %}
+            </div>    
+            <div class="col-md-8">
+                <h4 class="card-title">About me</h4>
+                <p class="card-text">{{ active_user.blurb }}</p>
+            </div>
+        </div>
+        <!-- The links images were adapted from: https://mdbootstrap.com/docs/standard/navigation/footer/ -->
+        <div class="row">
+            <div class="col-2 text-end">
+                {% if active_user.github != '' %}
+                    <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #333333;"
+                    href="https://www.github.com/{{ active_user.github }}"
+                    role="button"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    ><i class="bi bi-github"></i>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="col-2">
+                {% if active_user.linkedin != '' %}
+                    <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #0082ca;"
+                    href="https://www.linkedin.com/{{ active_user.linkedin }}"
+                    role="button"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    ><i class="bi bi-linkedin"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>      
+        <div class="row">
+            <div class="col-2 text-end">
+                {% if active_user.twitter != '' %}
+                    <a
+                    class="btn text-white btn-floating m-1"
+                    style="background-color: #55acee;"
+                    href="https://www.twitter.com/{{ active_user.twitter }}"
+                    role="button"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    ><i class="bi bi-twitter"></i>
+                    </a>
+                {% endif %}
+            </div>            
+            <div class="col-2">
+                {% if active_user.cv_filename != '' %}
+                <a
+                class="btn text-white btn-floating m-1"
+                style="background-color: #FF0000;"
+                href="{{ url_for('public.download') }}"
+                role="button"
+                ><i class="bi bi-filetype-pdf"></i>
+                </a>
+                {% endif %}
+            </div>        
+        </div>
+    </div>
+</div>
+
+<!-- Employment History -->
+<div class="shadow-sm p-3 mb-5 bg-body rounded">
+    <h4 class = "my-4" >Employment History</h4>
+    <table class="table table-hover align-left">
+        <thead>
+            <tr>
+            <th scope="col" class="w-25">Job Title</th>
+            <th scope="col" class="w-25">Company</th>
+            <th scope="col" class="w-20">From</th>
+            <th scope="col" class="w-20">Until</th>
+            <th scope="col" class="w-10"></th>
+            </tr>
+        </thead>
+        {% for work in works %}
+        <tr> 
+            <td>{{ work.title }} </td>
+            <td>{{ work.company }}</td>
+            <td>{{ work.start.strftime('%B %Y') }}</td>
+            <td>{% if work.end is not none %} 
+                    {{ work.end.strftime('%B %Y') }}
+                {% else %}
+                    Present Day 
+                {% endif %}</td>               
+            <td>
+               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#moreInfo{{ work.id }}">More info
+                </button>
+            </td> 
+        </tr>
+
+        <!-- Modal -->
+    <div class="modal fade" id="moreInfo{{ work.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ work.title }} at {{ work.company }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ work.job_description }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- Skills -->
+
+<div class="shadow-sm p-3 mb-5 bg-body rounded">
+    <h4 class = "my-4" >Skills and Qualitifications</h4>
+    <div class="container">
+        <div class="row row-cols-auto justify-content-around">
+        {% for skill in skills %}
+            <div class="card my-3" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">{{ skill.skill }}</h5>
+                <p class="card-text">{{ skill.skill_description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "biog.html" %}
+{% block heading%}
+<h4 class = "my-4">Amend {{ biog_to_update.name }}'s Details</h4>
+{% endblock %}
+
+{% block content %} 
+<button type="button" class="btn btn-secondary mb-4 back">Back</button>
+<a class="btn btn-danger mb-4 ms-4" href="{{ url_for('admin.biog_delete', id=biog_to_update.id) }}" role="button">Delete</a>
+{{ super() }}
+{% endblock %}
+
+{% block admin_secondary %}
+{% endblock %}

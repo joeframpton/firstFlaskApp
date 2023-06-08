@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block heading%}
+<h4 class = "my-4">The website is live for {{ active_user.name }}!</h4>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="shadow-sm p-3 mb-5 bg-body rounded w-75">
+  <form method="POST" action="">
+      {{ form.csrf_token }}
+      {{ form.biog_id.label (class="form-label") }}<br>
+      {{ form.biog_id (class="form-control") }}<br>
+      {{ form.confirmation (class="form-check-input") }}  {{ form.confirmation.label (class="form-check-label") }}<span class="required">*</span><br>
+      {{ form.submit(class="btn btn-primary mt-3") }}
+  </form>
+</div>
+
+{% endblock %}
+{% block admin_secondary %}
+{% if contacts|length %}
+<div class="container">
+  <div class="shadow-sm p-3 mb-5 bg-body rounded">
+  {% for contact in contacts %}
+    {% if loop.index < 6 %}
+      <p>{{ contact.name }} (<a href="mailto:{{ contact.email }}" class="link-secondary">{{ contact.email }}</a>)
+        {% if contact.organisation|length %}
+          of {{ contact.organisation }}
+        {% endif %} 
+      messaged:</p>
+      <p class="mb-4 border-bottom">{{ contact.comment }}</p>
+    {% endif %}
+  {% endfor %}
+  </div>
+{% endif %}
+</div>
+{% endblock %}

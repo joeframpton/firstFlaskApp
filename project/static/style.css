@@ -1,0 +1,33 @@
+body {
+    background-color: #F1FAEE;
+}
+
+header{
+    background-color:#1D3557;
+}
+
+footer{
+    background-color:#1D3557;
+    height: 50px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer, a {
+    color: white;
+    text-decoration: none;
+    align-self: center;
+    justify-self: center;
+    margin:auto;
+}
+
+.required {
+    color:#E63946;
+    font-weight: bolder;
+}
+
+#card-header-background{
+    background-color: #457B9D;
+}

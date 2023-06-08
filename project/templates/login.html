@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block heading%}
+<h4 class = "my-4">Login</h4>
+{% endblock %}
+
+{% if form.errors.items() %}
+    <div class="container alert alert-warning alert-dismissible fade show" role="alert">
+        <ul class="list-unstyled">
+            {% for field, errors in form.errors.items() %}
+              <li>Under '{{ form[field].label }}'': {{ ', '.join(errors) }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% block content %}
+<div class = "container">
+        <div class="shadow p-3 mb-5 bg-body rounded">
+                <form method="POST" novalidate>
+                {{ form.csrf_token }}
+                {{ form.email.label (class="form-label") }}<br>
+                {{ form.email (class="form-control") }}<br>
+                {{ form.password.label (class="form-label") }}<br>
+                {{ form.password (class="form-control") }}<br>
+                {{ form.remember_me.label (class="form-label") }} 
+                {{ form.remember_me }}<br>
+                {{ form.submit (class="btn btn-primary")}}
+                </form>
+        </div>
+</div>
+{% endblock %}
